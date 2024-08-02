@@ -1,0 +1,25 @@
+@model FileUploadViewModel
+
+@{
+    ViewBag.Title = "Upload PDF";
+}
+
+<h2>Upload PDF</h2>
+
+<form asp-action="CreateJournal" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label asp-for="Title">Title</label>
+        <input asp-for="Title" type="text" class="form-control"/>
+        <label asp-for="PdfFile">Select PDF file</label>
+        <input type="file" asp-for="PdfFile" class="form-control"/>
+        <span asp-validation-for="PdfFile" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-info mt-2">
+        @ViewBag.Message
+    </div>
+}

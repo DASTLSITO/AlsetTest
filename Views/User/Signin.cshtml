@@ -1,0 +1,36 @@
+@model SigninViewModel
+
+@{
+    ViewBag.Title = "Signin";
+}
+
+<h2>Signin</h2>
+<div class="form-signin-container">
+    <form action="Signin" method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        
+        <div class="form-component-container">
+            <label>Name</label>
+            <input type="text" name="UserName" asp-for="UserName"/>
+        </div>
+
+        <div class="form-component-container">
+            <label asp-for="Email">Email</label>
+            <input type="email" name="Email" asp-for="Email"/>
+        </div>
+
+        <div class="form-component-container">
+            <label asp-for="Password">Password</label>
+            <input type="password" name="Password" asp-for="Password"/>
+        </div>
+
+        <div class="form-component-container">
+            <label asp-for="ConfirmPassword">Confirm password</label>
+            <input type="password" name="ConfirmPassword" asp-for="ConfirmPassword"/>
+        </div>
+
+        <div class="form-component-container">
+            <input type="submit" value="Signin" class="btn btn-success"/>
+        </div>
+    </form>
+</div>

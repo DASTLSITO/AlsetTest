@@ -1,0 +1,36 @@
+@model IEnumerable<Journal>
+
+@{
+    ViewBag.Title = "Subscribed Journals";
+}
+
+<h2>Subscribed Journals</h2>
+
+@if (!Model.Any())
+{
+    <p>No journals found from your subscriptions.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Journal</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var journal in Model)
+        {
+            <tr>
+                <td>@journal.Title</td>
+                <td>@journal.User.UserName</td>
+                <td>
+                    <a href="@Url.Content($"{journal.ContentURL}")" class="btn btn-primary" target="_blank">View</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

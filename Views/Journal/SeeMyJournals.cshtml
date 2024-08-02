@@ -1,0 +1,27 @@
+@model IEnumerable<Journal>
+
+@{
+    ViewBag.Title = "My Files";
+}
+
+<h2>My Files</h2>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>File Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var file in Model)
+    {
+        <tr>
+            <td>@file.Title</td>
+            <td>
+                <a href="@Url.Content($"{file.ContentURL}")" class="btn btn-primary" target="_blank">View</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
