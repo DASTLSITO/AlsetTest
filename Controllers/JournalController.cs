@@ -39,13 +39,19 @@ public class JournalController : Controller
     {
         if (model.PdfFile == null || model.PdfFile.Length <= 0)
         {
-            ViewBag.Message = "No file selected.";
+            ModelState.AddModelError(string.Empty, "You must select a file");
             return View();
         }
         
         if (Path.GetExtension(model.PdfFile.FileName).ToLower() != ".pdf")
         {
-            ViewBag.Message = "Please upload a PDF file.";
+            ModelState.AddModelError(string.Empty, "You must select a PDF file");
+            return View();
+        }
+        
+        if(model.Title == null)
+        {
+            ModelState.AddModelError(string.Empty, "You must write a title");
             return View();
         }
         
@@ -62,7 +68,6 @@ public class JournalController : Controller
         
         _context.Journals.Add(journal);
         await _context.SaveChangesAsync();
-        ViewBag.Message = "File uploaded successfully!";
         return RedirectToAction("Message", "Shared", new { message = "You have created a journal succesfully" });
         
     }

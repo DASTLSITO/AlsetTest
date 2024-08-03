@@ -14,8 +14,8 @@ builder.Services.AddSession(options =>
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
-builder.Services.AddDbContext<ApplicationDbContext>(opciones =>
-    opciones.UseSqlServer("name=DefaultConnection"));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlite("name=DefaultConnection"));
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     {

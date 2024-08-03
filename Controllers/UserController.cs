@@ -88,7 +88,8 @@ public class UserController: Controller
         return View(model);
     }
 
-    public ActionResult SearchUser()
+    [HttpGet]
+    public ActionResult SearchResearcher()
     {
         if (User.Identity.IsAuthenticated)
         {
@@ -98,8 +99,16 @@ public class UserController: Controller
         return RedirectToAction("Index", "Home");
     }
     
+    [HttpGet]
+    public async Task<IActionResult> AllResearchers()
+    {
+        var currentUser = await _userManager.GetUserAsync(User);
+        var users = await _userManager.Users.Where(u => u.Id != currentUser.Id).ToListAsync();
+        return View(users);
+    }
+    
     [HttpPost]
-    public async Task<ActionResult> SearchUser(string UserSearch)
+    public async Task<ActionResult> SearchResearcher(string UserSearch)
     {
         if (string.IsNullOrWhiteSpace(UserSearch))
         {
@@ -115,7 +124,7 @@ public class UserController: Controller
 
         users.Remove(user);
 
-        return View("SearchUserResults", users);
+        return View("SearchResearcherResults", users);
     }
 
     [HttpGet]
@@ -130,6 +139,14 @@ public class UserController: Controller
     {
         var currentUser = await _userManager.GetUserAsync(User);
         var userToSubscribe = await _userManager.FindByIdAsync(userId);
+        
+        var userIsSubscribed = await _context.UserSubscriber
+            .AnyAsync(u => u.UserId == userToSubscribe.Id && u.SubscriberId == currentUser.Id);
+
+        if (userIsSubscribed)
+        {
+            ModelState.AddModelError(string.Empty, "You are already subscribed to this researcher");            return View("SearchResearcher");
+        }
 
         if (userToSubscribe == null || currentUser == null)
         {

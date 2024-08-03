@@ -7,6 +7,7 @@
 <h2>Upload PDF</h2>
 
 <form asp-action="CreateJournal" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" type="text" class="form-control"/>

@@ -10,4 +10,14 @@
         <li>Implement a search system</li>
         <li>Implement a journal system</li>
     </ul>
+    <h3>Current user: @{
+                         if (User.Identity.IsAuthenticated)
+                         {
+                             <text>@User.Identity.Name</text>
+                         }
+                         else
+                         {
+                             <text>Not Authenticated</text>
+                         }
+                     }</h3>
 </div>
